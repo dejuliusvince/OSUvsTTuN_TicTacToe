@@ -1,14 +1,22 @@
+@font-face {
+  font-family: college-collage;
+  src: url(./fonts/collegecollage.ttf);
+}
+
+
+
 *, *::after, *::before {
   box-sizing: border-box;
 }
 
 :root{
   --cell-size: 100px;
-  --mark-size: cal(var(--cell-size) * .9)
+  --mark-size: calc(var(--cell-size) * .6)
 }
 
 body {
   margin: 0;
+  background-color: rgb(55, 156, 55);
 }
 
 .board {
@@ -23,8 +31,65 @@ body {
 }
 
 .cell {
+  font-family: college-collage;
+  font-size: var(--mark-size);
   width: var(--cell-size);
   height: var(--cell-size);
-  background-color: black;
   border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+/*remove top border from board*/
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+
+/*remove bottom border from board*/
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+  border-bottom: none;
+}
+
+/*remove left border from board*/
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+
+/*remove right border from board*/
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+
+.cell.osu,
+.cell.mich {
+  cursor: not-allowed;
+}
+
+
+.board.osu .cell:not(.osu):not(.mich):hover::after {
+  content:'S';
+  color: lightgray;
+}
+
+.board.mich .cell:not(.osu):not(.mich):hover::after {
+  content: 'M';
+  color: lightgray;
+}
+
+.cell.osu::after {
+  content: 'S';
+  color: red;
+  background-color: lightgray;
+}
+
+.cell.mich::after {
+  content: 'M';
+  color: yellow;
+  background-color: navy;
 }
